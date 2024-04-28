@@ -1,0 +1,101 @@
+{% extends 'index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Batch Information</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include your custom CSS if needed -->
+   <style>
+        .a {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .c {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            color: black;
+            font-weight: bold;
+        }
+        input[type="text"],input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body class="a">
+    <div class="container c" >
+        <div class="form-container">
+            <h3><span class="orange-text">Update</span> Batch</h3>
+            <form id="form1" name="form1" method="post" action="/updatebatch_post/{{ id }}" onsubmit="validateTime('textfield2', 'textfield3')">
+                {% csrf_token %}
+                 <div class="mb-3">
+                <label for="textfield5" style="color: black" class="form-label">Batch Name:</label>
+                <input type="text"  class="form-control f" value="{{ data.Batch_title }}" id="textfield5" name="textfield5" required  title="Batch capacity should not be more than 999" placeholder="Enter the Batch Name">
+            </div>
+                <div class="form-group">
+                    <label for="textfield">Batch Capacity:</label>
+                    <input type="text" class="form-control" id="textfield"  name="textfield" value="{{ data.Batch_Capacity }}" required min="1" max="1000" title="Batch capacity should be less than 999"/>
+                </div>
+          <div class="mb-3">
+                <label for="textfield2" style="color: black" class="form-label">From Time</label>
+                <input type="time" class="form-control f" id="textfield2" name="textfield2" value="{{ data.Time_from }}" required >
+            </div>
+            <div class="mb-3">
+                <label for="textfield3" style="color: black" class="form-label">To Time</label>
+                <input type="time" class="form-control f" id="textfield3" name="textfield3" value="{{ data.Time_to }}" required >
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+                <a href="/viewbatch#abc" class="btn btn-dark" >Back</a>
+        </form>
+    </div>
+
+    <script>
+        function validateTime(fromField, toField) {
+            var fromTime = new Date("1970-01-01 " + document.getElementById(fromField).value);
+            var toTime = new Date("1970-01-01 " + document.getElementById(toField).value);
+
+            if (toTime <= fromTime) {
+                alert("To Time should be later than From Time.");
+                document.getElementById(toField).value = ""; // Clear the "To Time" field
+            }
+        }
+    </script>
+    <!-- Include Bootstrap JS and any other scripts if needed -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+{% endblock %}

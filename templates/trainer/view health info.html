@@ -1,0 +1,65 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Health Records</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: white;text-align: center;">View Health Info</h2>
+        <table class="table table-borderless" style="background-color: white;" border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Activity Level</th>
+                    <th>Medical Condition</th>
+                    <th>BMI</th>
+                    <th>Food Type</th>
+                    <th>Target</th>
+                    <th>Allergies</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.height }}</td>
+                    <td>{{ i.weight }}</td>
+                    <td>{{ i.activelevel }}</td>
+                    <td>{{ i.medical }}</td>
+                    <td>{{ i.bmi }}</td>
+                    <td>{{ i.foodtype }}</td>
+                    <td>{{ i.target }}</td>
+                    <td>{{ i.allergies }}</td>
+                <td>
+                    {% if forloop.first %}
+                            <a href="/uploaddietplan/{{ i.id }}/{{ uid }}#abc"  style="width: 90%" class="btn btn-dark mt-1">Diet Plan</a>
+                        <br>
+
+                            <a href="/addtips/{{ uid }}#abc"   class="btn btn-success mt-1">Tips</a>
+
+                            <a href="/addworkout/{{ uid }}#abc"  class="btn btn-danger mt-1">Workout</a>
+                            <a href="/myprogresstrainer/{{ uid }}#abc"  class="btn btn-primary mt-1">User Progress</a>
+                        {% endif %}
+                </tr>
+                    </td>
+                {% endfor %}
+            </tbody>
+        </table>
+    <a href="/viewmembers/{{ batch_id }}#abc" style="width: 100%" class="btn btn-primary">Back</a>
+
+    </div>
+    <!-- Add Bootstrap JS and jQuery scripts (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

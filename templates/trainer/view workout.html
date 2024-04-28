@@ -1,0 +1,59 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout List</title>
+    <!-- Add Bootstrap CSS Link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body >
+    <div>
+{% load static %}
+
+        <h2 style="color: white;text-align: center;">View Tips</h2>
+        <form action="" method="get">
+            <table class="table table-borderless" style="background-color: white;" border="1">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Video</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td class="text-center">{{ i.date }}</td>
+                        <td>{{ i.title }}</td>
+                        <td>{{ i.description }}</td>
+                        <td>
+                            <div class="video-container">
+                                <video width="320" height="240" controls>
+                                    <source src="{{ i.video }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </td>
+                        <td class="action-buttons">
+                            <a href="/editworkout/{{ i.id }}#abc" class="btn btn-primary mt-5 p-3 pl-4 pr-4">Edit</a><br>
+                            <a href="/deleteworkout/{{ i.id }}#abc" class="btn btn-danger mt-5 p-3 pl-4 pr-4">Delete</a><br>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        <a href="/addworkout/{{ data.0.USER.id }}#abc" style="width: 100%" class="btn btn-primary">Back</a>
+        </form>
+
+</div>
+
+</body>
+{% endblock %}

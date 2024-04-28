@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css">
+    <!-- Add your custom CSS for styling -->
+
+</head>
+<body class="b1">
+    <div class="container c1">
+        <h2 style="color: white;text-align: center;">View Feedback</h2>
+    <table class="table table-borderless" style="background-color: white" border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Feedback</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.USER.name }}</td>
+                    <td>{{ i.feedback }}</td>
+                    <td>{{ i.time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <a href="/adminhome" class="btn btn-primary">Back</a>
+    </div>
+    <!-- Add Bootstrap JS and Popper.js (for Bootstrap tooltips, popovers, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+
+
+{% endblock %}

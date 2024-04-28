@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Batch Management</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body class="b1">
+<div class="container c1">
+    <h2 style="color: white;text-align: center;">View Batch</h2>
+    <table class="table table-borderless" style="background-color: white" border="1">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Batch Title</th>
+                <th>Batch Capacity</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Joined</th>
+                <th>Remained</th>
+                <th >Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.Batch_title }}</td>
+                <td>{{ i.Batch_Capacity }}</td>
+                <td>{{ i.Time_from }}</td>
+                <td>{{ i.Time_to }}</td>
+                <td>{{ i.re }}</td>
+                <td>{{ i.c }}</td>
+                <td>
+                   {#  <p style="width: 120px">#} <a class="btn btn-primary pl-2 pr-2" href="/updatebatch/{{ i.id }}#abc">Update <i class="fa fa-pencil" aria-hidden="true" ></i></a>{#  </p>#}
+                   {#<p style="width: 120px">#} <a class="btn btn-danger pl-2 pr-2" href="/deletebatch/{{ i.id }}#abc">Delete <i class="fa fa-trash" aria-hidden="true"></i></a>{#</p>#}
+                   {#<p style="width: 120px">#} <a class="btn btn-success pl-1 pr-1" href="/viewrequest/{{i.id}}#abc">View Request <i class="fa fa-eye" aria-hidden="true"></i></a>{#</p>#}
+                   {#<p style="width: 120px">#} <a class="btn btn-dark pl-1 pr-2"  href="/viewbatchtrainer/{{ i.id }}#abc">View Trainer <i class="fa fa-eye" aria-hidden="true"></i></a><br>{#</p>#}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<a href="/adminhome" class="btn btn-primary">Back</a>
+</div>
+<!-- Add Bootstrap JS if needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+{% endblock %}

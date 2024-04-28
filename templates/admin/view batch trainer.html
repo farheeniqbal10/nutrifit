@@ -1,0 +1,46 @@
+        {% extends 'index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Table</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body >
+
+<div class="container">
+<h2 style="color: white;text-align: center;">View Batch Trainer</h2>
+    <table class="table table-borderless" style="background-color: white;" border="1">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Age</th>
+                <th scope="col">No. of Members</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ i.d.TRAINER.name }}</td>
+                <td>{{ i.d.TRAINER.sex }}</td>
+                <td>{{ i.d.TRAINER.age }}</td>
+                <td>{{ i.r }}</td>
+                <td><a href='/viewbatchmember/{{ i.d.TRAINER.id }}#abc' class="btn btn-primary">View Members <i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<a href="/viewbatch#abc" class="btn btn-dark" >Back</a>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

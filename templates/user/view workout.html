@@ -1,0 +1,48 @@
+{% extends 'userIndex.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+{% load static %}
+<form action="" method="get">
+<h2 style="color: white;text-align: center;">View Workouts </h2>
+
+
+    <table  class="table table-borderless" style="background-color: white" border="1">
+
+
+  <tr>
+    <th width="53" scope="col">#</th>
+    <th width="127" scope="col">Date</th>
+    <th width="194" scope="col">Title</th>
+    <th width="423" scope="col">Description</th>
+    <th width="390" scope="col">Video</th>
+  </tr>
+
+  <tr>
+       {% for i in data %}
+    <td>&nbsp;{{ forloop.counter }}</td>
+    <td>&nbsp;{{ i.date }}</td>
+    <td>{{ i.title }}&nbsp;</td>
+    <td>&nbsp;{{ i.description }}</td>
+    <td>&nbsp;
+
+        <video width="320" height="240" controls>
+          <source src="{{ i.video }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+    </td>
+    
+  </tr>
+    {% endfor %}
+</table>
+<a href="/userhome" class="btn btn-primary">Back</a>
+</form>
+</body>
+</html>
+{% endblock %}

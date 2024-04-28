@@ -1,0 +1,126 @@
+{% extends 'userIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .b8 {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .c8 {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body class="b8">
+    <div class="container c8">
+        <h2 style="color: black;text-align: center">View Profile</h2>
+        <form id="form1" name="form1" method="post" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                {{data.name}}
+            </div>
+            <div class="form-group">
+                <label for="place">Place:</label>
+                {{data.place}}
+            </div>
+            <div class="form-group">
+                <label for="pin">Pin:</label>
+                {{data.pin}}
+            </div>
+            <div class="form-group">
+                <label for="post">Post:</label>
+                {{data.post}}
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                {{data.age}}
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                {{data.sex}}
+            </div>
+            <div class="form-group">
+                <label for="occupation">Occupation:</label>
+                {{data.occupation}}
+            </div>
+
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                {{data.mobilenumber}}
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                {{data.email}}
+            </div>
+            <div class="form-group">
+                <a class="btn btn-primary" href="updateuser/{{ data.id }}#abc">Update</a>
+                <a class="btn btn-danger" href="deleteuserprofile/{{ data.id }}#abc" onclick="return delete1()">Deactivate my Account</a>
+                <a href="/userhome" class="btn btn-dark">Back</a>
+            </div>
+
+        </form>
+    </div>
+    <script>
+    function delete1(){
+        var a=confirm("Do you wish to Deactivate?")
+        if(a)
+        {
+            window.location="/"
+        }
+        else{
+            window.location="#"
+        }
+    }
+
+
+
+</script>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

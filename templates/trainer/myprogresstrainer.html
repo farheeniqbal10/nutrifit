@@ -1,0 +1,65 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Health Records</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+.container {
+            margin-top: 50px; /* Add some top margin for better spacing */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: white;text-align: center;">View Health Info</h2>
+    <div class="container"></div>
+        <img  src="{{ chart_path }}" height="500" width="1200" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for a lifted effect */
+            border-radius: 8px; /* Apply a slight border-radius for a rounded appearance */
+            margin-bottom: 20px;"/>
+    </div>
+{#        <table class="table table-borderless" style="background-color: white;" border="1">#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>#</th>#}
+{#                    <th>Height</th>#}
+{#                    <th>Weight</th>#}
+{#                    <th>Activity Level</th>#}
+{#                    <th>Medical Condition</th>#}
+{#                    <th>BMI</th>#}
+{#                    <th>Food Type</th>#}
+{#                    <th>Target</th>#}
+{#                    <th>Allergies</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for i in data %}#}
+{#                <tr>#}
+{#                    <td>{{ forloop.counter }}</td>#}
+{#                    <td>{{ i.height }}</td>#}
+{#                    <td>{{ i.weight }}</td>#}
+{#                    <td>{{ i.activelevel }}</td>#}
+{#                    <td>{{ i.medical }}</td>#}
+{#                    <td>{{ i.bmi }}</td>#}
+{#                    <td>{{ i.foodtype }}</td>#}
+{#                    <td>{{ i.target }}</td>#}
+{#                    <td>{{ i.allergies }}</td>#}
+{##}
+{#                </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+    <a href="/trainerhome" class="btn btn-primary">Back</a>
+    </div>
+    <!-- Add Bootstrap JS and jQuery scripts (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

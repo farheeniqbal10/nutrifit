@@ -1,0 +1,41 @@
+{% extends 'userIndex.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+
+</head>
+
+<body>
+<form action="" method="get">
+<h2 style="color: white;text-align: center;">View Tips</h2>
+
+
+    <table  class="table table-borderless" style="background-color: white" border="1">
+  <tr>
+    <th width="37" scope="col">#</th>
+     <th width="111" scope="col">Trainer</th>
+    <th width="111" scope="col">Date</th>
+    <th width="92" scope="col">Title</th>
+    <th width="279" scope="col">Description</th>
+  </tr>
+    {% for i in data %}
+  <tr>
+    <td>{{ forloop.counter }}&nbsp;</td>
+      <td>&nbsp;{{ i.TRAINER.name }}</td>
+
+    <td>&nbsp;{{ i.date }}</td>
+    <td>{{ i.title }}&nbsp;</td>
+    <td>{{ i.description }}&nbsp;</td>
+  
+  </tr>
+    {% endfor %}
+</table>
+<a href="/userhome" class="btn btn-primary">Back</a>
+</form>
+</body>
+</html>
+{% endblock %}

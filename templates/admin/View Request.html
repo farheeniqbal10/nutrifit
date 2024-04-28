@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Table</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include your custom CSS if needed -->
+{#    <style>#}
+{#        /* Add your custom styles here */#}
+{#        .b4 {#}
+{#            font-family: Arial, sans-serif;#}
+{#        }#}
+{#        .t4 {#}
+{#            max-width: 100%;#}
+{#            overflow-x: auto;#}
+{#        }#}
+{#    </style>#}
+</head>
+<body class="b4">
+    <div class="container">
+        <div class="table-container t4" style="background: white">
+            <table class="table table-borderless" border="1">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Place</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Occupation</th>
+                        <th>Mobile Number</th>
+                        <th>Email</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr {% if i.status == "approved" or i.status == "rejected"%}hidden{% endif %}>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.USER.name }}</td>
+                        <td>{{ i.USER.place }}</td>
+                        <td>{{ i.USER.age }}</td>
+                        <td>{{ i.USER.sex }}</td>
+                        <td>{{ i.USER.occupation }}</td>
+                        <td>{{ i.USER.mobilenumber }}</td>
+                        <td>{{ i.USER.email }}</td>
+                        <td>{{ i.time }}</td>
+                        <td>
+                            <a href="/assigntrainer/{{ i.id }}#abc" class="btn btn-success">Assign</a>
+                            <a href="/rejectrequest/{{ i.id }}#abc" class="btn btn-danger mt-2 ">Reject</a><br>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    <a href="/viewbatch#abc" style="width: 10%" class="btn btn-primary" >Back</a>
+    </div>
+    <!-- Include Bootstrap JS and any other scripts if needed -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+{% endblock %}

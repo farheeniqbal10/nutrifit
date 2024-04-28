@@ -1,0 +1,49 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Batch Management</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<body class="b11">
+<div class="container c11">
+    <h2 style="color: white;text-align: center;">View Tips</h2>
+    <table class="table table-borderless" style="background-color: white;" border="1">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Title</th>
+
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.title }}</td>
+                <td>{{ i.description }}</td>
+                <td>
+                    <a class="btn btn-dark" href="/edittip/{{ i.id }}#abc">Edit</a>
+                    <a class="btn btn-danger mt-1" href="/deletetip/{{ i.id }}#abc">Delete</a>
+
+
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+<a href="/addtips/{{ data.0.USER.id }}#abc" class="btn btn-primary" style="width: 100%">Back</a>
+</div>
+<!-- Add Bootstrap JS if needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

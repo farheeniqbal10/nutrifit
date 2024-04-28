@@ -1,0 +1,155 @@
+
+{% extends 'userIndex.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .b {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .c {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body class="b">
+<div class="container c">
+   <h2 style="color: black;text-align: center">Update Profile</h2>
+<form id="form1" name="form1" method="post" action="/updateuser_post/{{ id }}" onsubmit="return validatePassword()">
+    {% csrf_token %}
+  <div class="form-group">
+
+      <label for="textfield">Name:</label>
+      <input type="text" class="form-control" id="name" name="textfield" oninput="validateName()" value="{{ data.name }}" placeholder="Enter your name" required maxlength="100" title="Name should be in Letters" pattern="^[a-zA-Z ]*$">
+  </div>
+    <div class="form-group">
+
+      <label for="textfield2">Place:</label>
+        <input type="text" class="form-control" id="place" name="textfield2" oninput="validateName()" value="{{ data.place }}" placeholder="Enter your place" required maxlength="100" title="Place should be in Letters" pattern="^[a-zA-Z ]*$">
+    </div>
+    <div class="form-group">
+
+      <label for="textfield3">Pin:</label>
+        <input type="text" class="form-control" id="pin" name="textfield3" maxlength="6" oninput="validateTelephone()" value="{{ data.pin }}" placeholder="Enter your PIN"  pattern="\d{6}" required title="PIN No should be 10 digits">
+
+    </div>
+    <div class="form-group">
+        <label for="textfield4">Post:</label>
+      <input type="text" class="form-control" id="post" name="textfield4" oninput="validateName()" value="{{ data.post }}" placeholder="Enter your post" maxlength="20" required title="Post should be in Letters" pattern="^[a-zA-Z ]*$">
+    </div>
+    <div class="form-group">
+
+      <label for="textfield5">Age:</label>
+        <input type="number" class="form-control" id="age" name="textfield5" value="{{ data.age }}" placeholder="Enter your age" required maxlength="3"  pattern="[0-9]{2,3}" min="12" max="120">
+
+    </div>
+    <div class="form-group">
+      <label>Gender :</label><br>
+
+        <input type="radio" name="RadioGroup1" value="Male" id="RadioGroup1_0" required {% if data.sex == "Male" %}checked{% endif %}>
+         <label for="RadioGroup1_0">Male</label>
+        <input type="radio" name="RadioGroup1" value="Female" id="RadioGroup1_1" required {% if data.sex == "Female" %}checked{% endif %}>
+        <label for="RadioGroup1_1">Female</label>
+        <input type="radio" name="RadioGroup1" value="Other" id="RadioGroup1_2" required {% if data.sex == "Other" %}checked{% endif %}>
+        <label for="RadioGroup1_2">Other</label>
+    </div>
+    <div class="form-group">
+
+      <label for="textfield8">Occupation:</label>
+      <input type="text" class="form-control" id="occupation" name="textfield8" value="{{ data.occupation }}" placeholder="Enter your Occupation" title="Occupation should be in Letters" pattern="[A-Za-z ]+" required maxlength="100"  >
+    </div>
+    <div class="form-group">
+      <label for="textfield6">Mobile Number:</label>
+      <input type="text" class="form-control" id="mobile" name="textfield6" value="{{ data.mobilenumber }}" placeholder="Enter your mobile number"  pattern="\d{10}" required title="Mobile No should be 10 digits">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="textfield7" value="{{ data.email }}" placeholder="Enter your email" required maxlength="20">
+    </div>
+    <div class="form-group">
+        <label for="textfield9">Password:</label>
+      <input type="password" class="form-control" id="pass" name="textfield9" value="{{ data.LOGIN.password }}" placeholder="Enter your Password" required maxlength="20">
+    </div>
+    <div class="form-group">
+     <label for="textfield10">Confirm Password:</label>
+      <input type="password" class="form-control" id="pass1" name="textfield10" value="{{ data.LOGIN.password }}" placeholder="Confirm your Password" required maxlength="20">
+        <span id="message" style="color: red;"></span>
+    </div>
+    <div class="form-group">
+                <input type="submit" class="btn btn-primary" name="button" id="button" value="Submit">
+        <a href="/viewuserprofile#abc" class="btn btn-dark">Back</a>
+    </div>
+
+</form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+        function validatePassword() {
+            var password = document.getElementById("pass").value;
+            var confirmPassword = document.getElementById("pass1").value;
+
+            if (password !== confirmPassword) {
+                document.getElementById("message").innerHTML = "Passwords do not match!";
+                return false;
+            } else {
+                document.getElementById("message").innerHTML = "";
+                return true;
+            }
+        }
+        function validateName(input) {
+                 // Remove non-alphabetic characters and non-white space characters from the input value
+                       input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+                   }
+
+
+                 function validateTelephone(input) {
+                        // Remove non-numeric characters from the input value
+                        input.value = input.value.replace(/[^0-9]/g, '');
+                    }
+    </script>
+</body>
+
+</html>
+{% endblock %}

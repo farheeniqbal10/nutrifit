@@ -1,0 +1,63 @@
+{% extends 'userIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Batch Management</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body class="b1">
+<div class="container c1">
+    <h2 style="color: white;text-align: center;">View Batch</h2>
+{% for ij in data1 %}
+    <h3 style="color: white;">Current Status: {{ ij.status }}</h3>
+{% endfor %}
+    <table class="table table-borderless" style="background-color: white" border="1">
+
+
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Batch Title</th>
+                <th>Batch Capacity</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Joined</th>
+                <th>Remained</th>
+{#                {% if ij.status == "pending" and ij.status == ""%}#}
+                <th >Action</th>
+{#                {% endif %}#}
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.Batch_title }}</td>
+                <td>{{ i.Batch_Capacity }}</td>
+                <td>{{ i.Time_from }}</td>
+                <td>{{ i.Time_to }}</td>
+                <td>{{ i.assignment_count }}</td>
+                <td>{{ i.Capacity_remaining }}</td>
+{#                {% if ij.status == "pending" %}#}
+                <td><a class="btn btn-outline-dark" href="/sendrequest/{{ i.id }}/{{ i.assignment_count }}">JOIN</a></td>
+{#                {% endif %}#}
+
+            {% endfor %}
+        </tbody>
+    </table>
+<a href="/userhome" class="btn btn-primary">Back</a>
+</div>
+<!-- Add Bootstrap JS if needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+{% endblock %}
+
+

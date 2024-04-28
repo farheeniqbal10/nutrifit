@@ -1,0 +1,297 @@
+{% extends 'userIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Health Calculator</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Your custom CSS -->
+  <style>
+    /* Add your custom styles here */
+    .error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+    .orange-text {
+  color: #F28123;
+}
+
+    .c {
+      max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    }
+    .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            color: black;
+            font-weight: bold;
+        }
+        input[type="text"],input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+    /* Add more custom styles as needed */
+  </style>
+</head>
+
+<body class="b">
+  <div class="container c">
+      <h3 style="font-size: 40px;position: relative;padding-bottom: 15px;"><span class="orange-text" >Upload</span> Health Details</h3>
+   <div class="row justify-content-between">
+                <div class="col-md-6">
+    <form id="form1" name="form1" method="post" enctype="application/x-www-form-urlencoded" action="/uploadhealthpost/" onsubmit="return validateForm()">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="textfield">Height (in cm)</label>
+        <input type="number" class="form-control" name="textfield" placeholder="Enter your height" min="100" max="250"  id="textfield" oninput="calculateBMI()" value="{{ data.height }}" pattern="\d{1,3}" title="Please enter a valid height in centimeters (up to 3 digits)" required />
+      </div>
+
+
+      <div class="form-group">
+        <label for="select">Active level</label>
+        <select class="form-control" name="select" id="select" required>
+
+          <option>Little or NO Activity</option>
+          <option>Lightly Active</option>
+          <option>Moderately Active</option>
+          <option>Very Active</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="textfield15">BMI</label>
+        <input type="text" class="form-control" value="{{ data.bmi }}" name="textfield15" id="textfield15" disabled />
+      </div>
+
+      <!-- Add Bootstrap classes for radio buttons and labels -->
+      <div class="form-group">
+        <label>Food Type</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="RadioGroup1" {% if data.foodtype == "Veg" %}checked{% endif %} value="Veg" id="RadioGroup1_0" required />
+          <label class="form-check-label" for="RadioGroup1_0">Veg</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="RadioGroup1" {% if data.foodtype == "Non-Veg" %}checked{% endif %} value="Non-Veg" id="RadioGroup1_1" required />
+          <label class="form-check-label" for "RadioGroup1_1">Non Veg</label>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="textfield6">Allergies</label>
+        <input type="text" class="form-control" name="textfield6" id="textfield6" placeholder="None" />
+      </div>
+      </div>
+
+   <div class="col-md-6">
+      <!-- Add Bootstrap classes for radio buttons and labels -->
+   <div class="form-group">
+        <label for="textfield2">Weight (in kg)</label>
+        <input type="number" class="form-control" min="10" max="250" placeholder="Enter your weight" name="textfield2" id="textfield2" value="{{ data.weight }}" required   pattern="\d{1,3}" title="Please enter a valid height in kilograms (up to 3 digits)"  oninput="calculateBMI(); calculateWeeks();" />
+      </div>
+
+<div class="form-group">
+        <label for="select2">Weekly Target</label>
+        <select class="form-control" name="select2" id="select2" oninput="calculateWeeks()" required>
+
+          <option value="0.25">0.25 KG per week</option>
+          <option value="0.50">0.50 KG per week</option>
+          <option value="0.75">0.75 KG per week</option>
+          <option value="1.00">1.00 KG per week</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="textfield3">Target Weight (in kg)</label>
+        <input type="number" class="form-control" name="textfield3"  min="30" max="250" placeholder="Enter your target weight"  value="{{ data.targetweight }}" id="textfield3" oninput="calculateWeeks()" required />
+      </div>
+   <div id="error-message" class="error-message"></div>
+<div class="form-group">
+        <label>Target</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="RadioGroup2" {% if data.target == "gain" %}checked{% endif %} value="gain" id="RadioGroup2_0" oninput="calculateWeeks()" required/>
+          <label class="form-check-label" for="RadioGroup2_0">Weight Gain</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="RadioGroup2" {% if data.target == "lose" %}checked{% endif %} value="lose" id="RadioGroup2_1" oninput="calculateWeeks()" required />
+          <label class="form-check-label" for="RadioGroup2_1">Weight Loss</label>
+        </div>
+</div>
+
+
+      <div class="form-group">
+        <label for="textfield4">Estimated Time</label>
+        <input type="text" class="form-control" value="{{ data.estimatedtime }}" name="textfield4" id="textfield4" readonly />
+      </div>
+   </div>
+   </div>
+   <div class="col-md-12">
+      <!-- Add Bootstrap classes for checkboxes and labels -->
+      <div class="form-group">
+        <label>Medical Condition</label>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="CheckboxGroup1" {% if data.medical == "None" %}checked{% endif %} value="None" id="CheckboxGroup1_None" checked />
+          <label class="form-check-label " for="CheckboxGroup1_None">None</label>
+            <br>
+          <input class="form-check-input " type="checkbox" name="CheckboxGroup1"  {% if data.medical == "Pre-Diabetes" %}checked{% endif %} value="Pre-diabetes" id="CheckboxGroup1_10"  />
+          <label class="form-check-label " for="CheckboxGroup1_0">Pre-diabetes</label>
+
+          <input class="form-check-input ml-2" type="checkbox" name="CheckboxGroup1" {% if data.medical == "Cholesterol" %}checked{% endif %} value="Cholesterol" id="CheckboxGroup1_09"  />
+          <label class="form-check-label ml-4" for="CheckboxGroup1_0">Cholesterol</label>
+
+
+          <input class="form-check-input ml-2" type="checkbox" name="CheckboxGroup1" {% if data.medical == "Hypertension" %}checked{% endif %} value="Hypertension" id="CheckboxGroup1_08"  />
+          <label class="form-check-label ml-4" for="CheckboxGroup1_0">Hypertension</label>
+
+
+          <input class="form-check-input ml-2" type="checkbox" name="CheckboxGroup1" {% if data.medical == "PCOS" %}checked{% endif %} value="PCOS" id="CheckboxGroup1_07"  />
+          <label class="form-check-label ml-4" for="CheckboxGroup1_0">PCOS</label>
+
+
+          <input class="form-check-input ml-2" type="checkbox" name="CheckboxGroup1" {% if data.medical == "Thyroid" %}checked{% endif %} value="Thyroid" id="CheckboxGroup1_06" />
+          <label class="form-check-label ml-4" for="CheckboxGroup1_0">Thyroid</label>
+
+
+          <input class="form-check-input ml-2" type="checkbox" name="CheckboxGroup1" {% if data.medical == "Physical Injury" %}checked{% endif %} value="Physical Injury" id="CheckboxGroup1_05"  />
+          <label class="form-check-label ml-4" for="CheckboxGroup1_0">Physical Injury</label>
+       <br>
+
+          <input class="form-check-input " type="checkbox" name="CheckboxGroup1" {% if data.medical == "Excessive stress" %} checked {% endif %} value="Excessive stress" id="CheckboxGroup1_04"  />
+          <label class="form-check-label " for="CheckboxGroup1_0">Excessive stress</label>
+
+
+          <input class="form-check-input ml-2" type="checkbox" name="CheckboxGroup1" {% if data.medical == "Depression" %}checked{% endif %} value="Depression" id="CheckboxGroup1_03"  />
+          <label class="form-check-label ml-4" for="CheckboxGroup1_0">Depression</label>
+
+
+          <input class="form-check-input ml-2" type="checkbox" name="CheckboxGroup1"  {% if data.medical == "Diabetes" %}checked{% endif %} value="Diabetes" id="CheckboxGroup1_02"  />
+          <label class="form-check-label ml-4" for="CheckboxGroup1_0">Diabetes</label>
+            <input class="form-check-input ml-2" type="checkbox" name="CheckboxGroup1" {% if data.medical == "Other" %}checked{% endif %} value="Other" id="CheckboxGroup1_01"  />
+          <label class="form-check-label ml-4" for="CheckboxGroup1_0">Other</label>
+            <br>
+
+
+
+</div>
+
+
+
+ </div>
+        <!-- Add more checkboxes and labels as needed -->
+      </div>
+
+
+
+<div class="col-md-12">
+
+  <button type="submit" style="margin-left: 300px" class="btn btn-primary">Submit</button>
+  <a href="/userhome" class="btn btn-dark">Back</a>
+</div>
+  </div>
+  </div>
+    </form>
+
+    <script>
+      // Your JavaScript code here
+     function calculateWeeks() {
+    var currentWeight = parseFloat(document.getElementById('textfield2').value);
+    var targetWeight = parseFloat(document.getElementById('textfield3').value);
+    var goal = document.querySelector('input[name="RadioGroup2"]:checked');
+    var weeklyTargetChange = parseFloat(document.getElementById('select2').value);
+    var errorElement = document.getElementById('error-message');
+
+    if (!isNaN(currentWeight) && !isNaN(targetWeight) && !isNaN(weeklyTargetChange) && goal) {
+      var goalValue = goal.value;
+
+      // Check if the target weight is valid based on the goal (gain or lose)
+      if ((goalValue === "gain" && targetWeight >= currentWeight) || (goalValue === "lose" && targetWeight <= currentWeight)) {
+        var weightDifference = Math.abs(targetWeight - currentWeight);
+        var estimatedWeeks = weightDifference / weeklyTargetChange;
+        document.getElementById('textfield4').value = estimatedWeeks.toFixed(2) + " weeks";
+        // Clear any previous error message
+        errorElement.textContent = '';
+      } else {
+        document.getElementById('textfield4').value = '';
+        // Display an error message for invalid target weight
+        errorElement.textContent = 'Invalid target weight. Check your goal and target weight.';
+      }
+    } else {
+      document.getElementById('textfield4').value = '';
+      // Clear any previous error message
+      errorElement.textContent = '';
+    }
+  }
+ function validateName(input) {
+                 // Remove non-alphabetic characters and non-white space characters from the input value
+                       input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+                   }
+
+
+                 function validateTelephone(input) {
+                        // Remove non-numeric characters from the input value
+                        input.value = input.value.replace(/[^0-9]/g, '');
+                    }
+
+         function disableCheckboxes() {
+    var noneCheckbox = document.getElementById('CheckboxGroup1_None');
+    var checkboxes = document.querySelectorAll('input[name="CheckboxGroup1"]:not([value="None"])');
+
+    checkboxes.forEach(function (checkbox) {
+      checkbox.disabled = noneCheckbox.checked;
+    });
+  }
+
+  // Attach the function to the "None" radio button change event
+  document.getElementById('CheckboxGroup1_None').addEventListener('change', disableCheckboxes);
+
+  // Trigger the function once on page load to ensure initial state
+  window.addEventListener('load', disableCheckboxes);
+   function validateForm() {
+  var form = document.getElementById('form1');
+  var errorElement = document.getElementById('error-message');
+  var estimatedTime = document.getElementById('textfield4').value;
+
+  // Check if the form is valid
+  if (form.checkValidity()) {
+    // Check if the estimated time is available (indicating a valid target weight)
+    if (estimatedTime.trim() !== '') {
+      // Clear any previous error message
+      errorElement.textContent = '';
+      return true;
+    } else {
+      // Display an error message for invalid target weight
+      errorElement.textContent = 'Invalid target weight. Check your goal and target weight.';
+      return false;
+    }
+  } else {
+    // Display an error message for general validation errors
+    errorElement.textContent = 'Please fix the validation errors before submitting the form.';
+    return false;
+  }
+}
+
+ </script>
+
+
+</body>
+</html>
+{% endblock %}
