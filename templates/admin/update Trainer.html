@@ -1,0 +1,119 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Trainer</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .b3 {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .c3 {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body class="b3">
+    <div class="container c3">
+        <h3><span class="orange-text">Update</span> Trainer</h3>
+        <form id="form1" name="form1" method="post" action="/updatetrainer_post/{{id}}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="textfield" value="{{data.name}}" placeholder="Enter your name" required maxlength="40" title="Name should be in Letters" pattern="^[a-zA-Z ]*$">
+            </div>
+            <div class="form-group">
+                <label for="place">Place:</label>
+                <input type="text" class="form-control" id="place" value="{{data.place}}" name="textfield2" placeholder="Enter your place" required maxlength="100" title="Place should be in Letters"pattern="^[a-zA-Z ]*$">
+            </div>
+            <div class="form-group">
+                <label for="pin">Pin:</label>
+                <input type="number" class="form-control" id="pin" value="{{data.pin}}" name="textfield3" placeholder="Enter your PIN"  required title="Pin should be in Digits" >
+            </div>
+            <div class="form-group">
+                <label for="post">Post:</label>
+                <input type="text" class="form-control" id="post" value="{{data.post}}" name="textfield4" placeholder="Enter your post" maxlength="20" required title="Post should be in Letters" pattern="^[a-zA-Z ]*$">
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" id="age" value="{{data.age}}" name="textfield5" placeholder="Enter your age" required  pattern="[0-9]{2,3}" min="12" max="120" title="Age should be between 12 and 120" >
+            </div>
+            <div class="form-group">
+                <label>Gender:</label><br>
+                <input type="radio" name="RadioGroup1" value="Male" id="RadioGroup1_0" {% if data.sex == "Male" %}checked{% endif %} required>
+                <label for="RadioGroup1_0">Male</label>
+                <input type="radio" name="RadioGroup1" value="Female" id="RadioGroup1_1" {% if data.sex == "Female" %}checked{% endif %} required>
+                <label for="RadioGroup1_1">Female</label>
+                <input type="radio" name="RadioGroup1" value="Other" id="RadioGroup1_2" {% if data.sex == "Other" %}checked{% endif %} required>
+                <label for="RadioGroup1_2">Other</label>
+            </div>
+            <div class="form-group">
+                <label for="qualification">Qualification:</label>
+                <textarea class="form-control" id="qualification" name="textarea" rows="3"  placeholder="Enter your qualification"  required maxlength="200"  >{{data.qualification}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="experience">Experience:</label>
+                <textarea class="form-control" id="experience" name="textarea2" rows="3"  placeholder="Enter your experience" required maxlength="200" >{{data.experience}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="text" class="form-control" id="mobile" name="textfield6" value="{{data.mobilenumber}}" placeholder="Enter your mobile number" maxlength="10" pattern="\d{10}" required title="Mobile No should be 10 digits">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="textfield7" value="{{data.email}}" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" name="button" id="button" value="Update">
+                <a href="/viewprofile/#abc" class="btn btn-dark" >Back</a>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}
+

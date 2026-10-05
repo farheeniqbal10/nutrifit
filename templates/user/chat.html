@@ -1,0 +1,140 @@
+{% extends 'userIndex.html' %}
+{% block body %}
+    <style>
+ #t4 {
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+/* User message styling */
+.mine {
+    background-color: blue; /* Blue color for sender's messages */
+    color: white;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px 0;
+    max-width: 70%;
+    word-wrap: break-word;
+    float: right;
+}
+
+/* Opposite message styling */
+.oposite {
+    background-color: green; /* Red color for recipient's messages */
+    color: #ffffff; /* Text color in red background */
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px 0;
+    max-width: 70%;
+    word-wrap: break-word;
+    float: left;
+}
+.b8 {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+.c8 {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <body class="b8">
+    <div class="c8">
+        <h2 style="color: black;text-align: center">Chat with Trainer</h2>
+<form action="#" method="post">
+{% csrf_token %}
+<table id="t1" class="container" align="center" >
+  </table>
+    <p></p>
+    <table id="t3" align="center"></table>
+    <center>
+    <div id="t4"  align="center" style="background: white;width: 100%"></div><p></p>
+        </center>
+    <table id="t2" align="center">
+        <tr>
+            <td>
+        <input type="hidden" id="v"/></td>
+          <td><input type="hidden" id="h"/></td>
+          <td><input type="hidden" id="u" value="{{ u }}"/></td>
+        <th><input type="text" name="e" id="e" class="form-control" /></th>
+      <th><input type="button" name="chat" id="chat" value="chat" class="btn btn-success"/></th>
+            </tr>
+{#    </div>#}
+    </table>
+
+</form>
+        </div>
+
+<script type="text/javascript" src="/static/jquery.js"></script>
+
+<script>
+    $(document).ready(function () {
+        function abc() {
+            $.ajax({
+            url: '/Uchatreply',
+            type: 'post',
+            success: function (res) {
+                var rid=$("#u").val();
+                  a = res;
+                  b = a.status;
+                  if (b === "ok") {
+                      s = a.data
+                      d = a.id
+                      var len = s.length;
+                      $("#t4").text("");
+                        for (i = 0; i <= len; i++) {
+                            x = s[i];
+                            s_id = x.type;
+                            msg = x.chat;
+                            if (s_id === 'user') {
+{#                                outgoing#}
+{#                                $("#t4").append('<tr align="right"><td class="b" width="50%" colspan="2"><span class="mine">' + msg + '</span></td> </tr>')#}
+                                $("#t4").append('<br><br><div class="row"><div class="col-md-6"></div><div class="col-md-6" align="right"><span class="mine">' + msg + '</span></div></div>')
+                            }
+                            if (s_id === 'trainer') {
+{#                                incoming#}
+
+{#                                $("#t4").append('<tr align="left"> <td width="50%" class="b" colspan="2"><span class="oposite">' + msg + '</span></td></tr>')#}
+                                $("#t4").append('<br><br><div class="row"><div class="col-md-6" align="left"><span class="oposite">' + msg + '</span></div><div class="col-md-6"></div></div>')
+                            }
+                        }
+                    }
+            },
+
+            error: function (err) {
+                bb = jQuery.parseJSON(err)
+                {#alert("error")#}
+            }
+        });
+
+        }
+        aa=setInterval(abc,1000)
+    });
+
+$("#chat").click(function () {
+    var k = $("#h").val()
+    var d = $("#e").val()
+    $.ajax({
+        url: '/Uchatsent',
+        type: 'POST',
+        data: {n: k, m: d},
+        success: function (res) {
+
+            result = res.stattus
+
+        },
+        error: function (err) {
+            bb = jQuery.parseJSON(err)
+        }
+
+    });
+$("#e").val("")
+});
+
+    </script>
+    </body>
+{% endblock %}

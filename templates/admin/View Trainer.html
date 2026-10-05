@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="container">
+    <h2 style="color: white; text-align: center;">View Trainer</h2>
+
+    <div class="table-responsive">
+        <table class="table table-borderless" style="background-color: white;" border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Qualification</th>
+                    <th>Experience</th>
+                    <th>Contact Info</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.place }}<br>{{ i.pin }}<br>{{ i.post }}</td>
+                    <td>{{ i.age }}</td>
+                    <td>{{ i.sex }}</td>
+                    <td>{{ i.qualification }}</td>
+                    <td>{{ i.experience }}</td>
+                    <td>{{ i.mobilenumber }}<br>{{ i.email }}</td>
+                    <td>
+                        <a href="/edittrainer/{{ i.id }}#abc" class="btn btn-primary" style="padding-left: 0.8rem; padding-right: 0.8rem;">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a href="/deletetrainer/{{ i.id }}#abc" class="btn btn-danger mt-1" style="padding-left: 0.5rem; padding-right: 0.5rem;">Delete <i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="/adminhome" class="btn btn-primary">Back</a>
+</div>
+
+{% endblock %}

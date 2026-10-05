@@ -1,0 +1,55 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Batch Management</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="b9">
+<div class="container">
+    <h2 style="color: white; text-align: center;">Assigned Batch</h2>
+    <div class="table-responsive">
+        <table class="table table-borderless" style="background-color: white;" border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Batch Title</th>
+                    <th>Batch Capacity</th>
+                    <th>Joined members</th>
+                    <th>Under my Supervision</th>
+                    <th>Remaining Seats</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.Batch_Capacity }}</td>
+                    <td>{{ i.rr }}</td>
+                    <td>{{ i.r1 }}</td>
+                    <td>{{ i.c }}</td>
+                    <td>{{ i.Time_from }}</td>
+                    <td>{{ i.Time_to }}</td>
+                    <td>
+                        <a class="btn btn-primary pl-2 pr-2" href="/viewmembers/{{ i.id }}#abc">View Members <i class="fa fa-eye" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="/trainerhome" class="btn btn-primary">Back</a>
+</div>
+<!-- Add Bootstrap JS if needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

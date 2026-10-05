@@ -1,0 +1,62 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Diet Plan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2 style="color: white; text-align: center;">View Diet Plan</h2>
+    <div class="table-responsive">
+        <table class="table table-borderless" style="background-color: white;">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ i.date }}</td>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.description }}</td>
+                    <td>
+                        <a href="/editdietplan/{{ i.id }}#abc" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="/deletedietplan/{{ i.id }}#abc" class="btn btn-danger btn-sm ml-1">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="/uploaddietplan/{{ data.0.id }}/{{ data.0.USER.id }}#abc" class="btn btn-primary btn-block mt-3">Back</a>
+</div>
+
+<style>
+    /* CSS for responsiveness */
+    @media (max-width: 576px) {
+        .table th, .table td {
+            padding: 0.3rem;
+            font-size: 0.85rem;
+        }
+        .btn {
+            padding: 0.2rem 0.4rem;
+            font-size: 0.8rem;
+        }
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

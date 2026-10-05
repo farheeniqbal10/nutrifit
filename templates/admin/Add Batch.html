@@ -1,0 +1,115 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Form</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add custom CSS for styling -->
+
+      <style>
+        .a {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .c {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            color: black;
+            font-weight: bold;
+        }
+        input[type="text"],input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+
+<body class="a">
+    <div class="c">
+        <h2 style="color: black;text-align: center">Add Batch</h2>
+        <form id="form1" name="form1" method="post" action="/addbatch_post" onsubmit="return validateTime('textfield2', 'textfield3')">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="textfield5" style="color: black" class="form-label">Batch Name:</label>
+                <input type="text" class="form-control f" id="textfield5" name="textfield5" required title="Batch capacity should not be more than 999" placeholder="Enter the Batch Name">
+            </div>
+            <div class="mb-3">
+                <label for =textfield" style="color: black" class="form-label">Batch Capacity</label>
+                <input type="number" class="form-control f" id="textfield" name="textfield"  required min="1" max="100" title="Batch capacity should not be more than 999" placeholder="Enter the Batch Capacity">
+            </div>
+            <div class="mb-3">
+                <label for="textfield2" style="color: black" class="form-label">From Time</label>
+                <input type="time" class="form-control f" id="textfield2" name="textfield2" required >
+            </div>
+            <div class="mb-3">
+                <label for="textfield3" style="color: black" class="form-label">To Time</label>
+                <input type="time" class="form-control f" id="textfield3" name="textfield3" required >
+            </div>
+            <button type="submit" class="btn btn-primary">ADD</button>
+            <a href="/adminhome" class="btn btn-dark">Back</a>
+        </form>
+
+
+    </div>
+
+    <script>
+        function validateTime(fromField, toField) {
+    var fromTime = new Date("1970-01-01 " + document.getElementById(fromField).value);
+    var toTime = new Date("1970-01-01 " + document.getElementById(toField).value);
+
+    if (toTime <= fromTime) {
+        alert("To Time should be later than From Time.");
+        document.getElementById(toField).value = ""; // Clear the "To Time" field
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+}
+
+
+
+    </script>
+    <!-- Add Bootstrap JS and jQuery links (required for some Bootstrap components) -->
+{#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>#}
+
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Health Records</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 50px; /* Add some top margin for better spacing */
+        }
+        @media (max-width:600px){
+            .responsive-img {
+
+    margin-left: 0px;
+            }
+        }
+        @media (min-width:601px){
+            .responsive-img {
+
+                margin-left: 210px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: white;text-align: center;">View Health Info</h2>
+        <div class="container"></div>
+        {% if data %}
+            <img src="{{ data.0.progress }}" class="img-fluid responsive-img" alt="Health Progress" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; margin-bottom: 20px;">
+        {% endif %}
+    </div>
+    <a href="/trainerhome" class="btn btn-primary">Back</a>
+    <!-- Add Bootstrap JS and jQuery scripts (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

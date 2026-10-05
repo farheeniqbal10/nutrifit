@@ -1,0 +1,83 @@
+{% extends 'trainerIndex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Health Records</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <style>
+    /* Custom styles */
+    .btn-group {
+        margin-bottom: 10px;
+    }
+    .btn-group .btn {
+        width: calc(25% - 5px); /* Adjusted button width to fit 4 buttons in a row */
+        margin-right: 5px; /* Added margin to the right side of each button */
+        margin-bottom: 5px; /* Adjusted margin between buttons vertically */
+    }
+    @media (max-width: 576px) {
+        .btn-group .btn {
+            width: 100%;
+            margin-right: 5px; /* Remove margin on smaller screens */
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: white; text-align: center;">View Health Info</h2>
+        <div class="table-responsive">
+            <table class="table table-borderless" style="background-color: white;" border="1">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Height</th>
+                        <th>Weight</th>
+                        <th>Activity Level</th>
+                        <th>Medical Condition</th>
+                        <th>BMI</th>
+                        <th>Food Type</th>
+                        <th>Target</th>
+                        <th>Allergies</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.height }}</td>
+                        <td>{{ i.weight }}</td>
+                        <td>{{ i.activelevel }}</td>
+                        <td>{{ i.medical }}</td>
+                        <td>{{ i.bmi }}</td>
+                        <td>{{ i.foodtype }}</td>
+                        <td>{{ i.target }}</td>
+                        <td>{{ i.allergies }}</td>
+                        <td>
+                            {% if forloop.first %}
+                                <div class="btn-group">
+                                    <a href="/uploaddietplan/{{ i.id }}/{{ uid }}#abc" class="btn btn-dark">Diet Plan</a>
+                                    <a href="/addtips/{{ uid }}#abc" class="btn btn-success">Tips</a>
+                                    <a href="/addworkout/{{ uid }}#abc" class="btn btn-danger">Workout</a>
+                                    <a href="/myprogresstrainer/{{ uid }}#abc" class="btn btn-primary">User Progress</a>
+                                </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="/viewmembers/{{ batch_id }}#abc" class="btn btn-primary" style="width: 100%;">Back</a>
+    </div>
+    <!-- Add Bootstrap JS and jQuery scripts (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}
